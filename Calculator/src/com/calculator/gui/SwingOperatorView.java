@@ -4,14 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/** add the import for the proxy here 
+ *	to allow the interception of the action event 
+ **/ 
 import static com.calculator.utils.ListenerProxies.actionListener;
 
 public class SwingOperatorView extends JFrame implements IOperators {
@@ -95,6 +96,11 @@ public class SwingOperatorView extends JFrame implements IOperators {
     	_this.buttonDot 		= new JButton(	STR_NUM_DOT		);
     	_this.buttonClear		= new JButton(	STR_NUM_CLEAR	);
     	
+    	// a sample for using the proxy
+    	// we used the method actionListener define in ListenerProxies.class
+    	// we have two params : 
+    	// - first is the target object
+    	// - the method we want to use
     	_this.buttonOne.addActionListener	(	actionListener	(_this.controller, "KeyPadActionPerformed")	);
     	_this.buttonTwo.addActionListener	(	actionListener	(_this.controller, "KeyPadActionPerformed")	);
     	_this.buttonThree.addActionListener	(	actionListener	(_this.controller, "KeyPadActionPerformed")	);
@@ -179,7 +185,5 @@ public class SwingOperatorView extends JFrame implements IOperators {
 	public void setResultLabel(String resultLabel) {
 		this.resultLabel.setText(resultLabel);
 	}
-    
-    /** GETTERS AND SETTERS */
     
 }

@@ -6,15 +6,15 @@ import javax.swing.JFrame;
 
 import com.calculator.utils.Executor;
 
-public class SwingOperatorController implements IOperators {
+public class SwingOperatorController {
 
 	private SwingOperatorView view = null;
-	
 	
 	public SwingOperatorController(SwingOperatorView view) {
 		this.setView(view);
 	}
-
+	
+	// key pad action listener method 
 	public void KeyPadActionPerformed(ActionEvent e) {
 		System.out.println("numPad :: " + e.getActionCommand());
 		String label = (!this.view.getResultLabel().equals("")) ? this.view.getResultLabel() : "";
@@ -25,6 +25,7 @@ public class SwingOperatorController implements IOperators {
 		SwingOperatorView.updateLabel(label);
 	}
 	
+	// the opperator action listener method
 	public void OppPadActionPerformed(ActionEvent e) {
 		System.out.println("oppPad :: " + e.getActionCommand());
 		String label = (!this.view.getResultLabel().equals("")) ? this.view.getResultLabel() : "";
@@ -82,7 +83,8 @@ public class SwingOperatorController implements IOperators {
 		}	
 	}
 	
-	
+	// execute the operation set in the label
+	// if the label contains two successive operator, will have an error
 	private double executeOpperation(String label) {
 		if (!label.contains("  ")) {
 			String split [] = label.split(" ");
@@ -100,7 +102,7 @@ public class SwingOperatorController implements IOperators {
 					result = Executor.mult(value1, value2);
 					break;
 				case "/" :
-					result =Executor.div(value1, value2);
+					result = Executor.div(value1, value2);
 					break;
 			}
 			return result;	
@@ -112,10 +114,13 @@ public class SwingOperatorController implements IOperators {
 		
 	}
 	
+	// check if the view JLabel we have "ERROR" 
 	private boolean checkError() {
 		return this.view.getResultLabel().contains("ERROR") ? true : false;
 	}
 	
+	// check if the label String we get is a valid
+	// two value plus an operator
 	private boolean valideEntry(String label) {
 		return label.contains( "+") ||
 				label.contains( "-") ||
